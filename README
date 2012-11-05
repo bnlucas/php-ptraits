@@ -5,7 +5,7 @@ PTraits Useage
 
 /path/to/App/App.php
 -----------------------------------------------------
-&lt;?php
+<?php
 namespace App;
 use PTraits;
 
@@ -33,13 +33,13 @@ class App {
 		return "Goodnight, ".$name.".";
 	}
 }
-?&gt;
+?>
 -----------------------------------------------------
 
 
 /path/to/App/Traits/HelloGoodbye.php
 -----------------------------------------------------
-&lt;?php
+<?php
 namespace App/Traits;
 
 /**
@@ -57,13 +57,13 @@ class HelloGoodbye {
 		return "Goodbye, ".$name.".";
 	}
 }
-?&gt;
+?>
 -----------------------------------------------------
 
 
 /path/to/App/index.php
 -----------------------------------------------------
-&lt;?php
+<?php
 require_once($_SERVER['DOCUMENT_ROOT']."/path/to/Loader.php");
 Loader::register();
 
@@ -74,6 +74,6 @@ echo $app->sayHello("world");		// Hello, world.
 echo $app->sayGoodMorning("user");	// Good morning, user.
 echo $app->sayGoodnight("world");	// Goodnight, world.
 echo $app->sayGoodbye("user");		// Good bye, user.
-?&gt;
+?>
 -----------------------------------------------------
 </pre>
