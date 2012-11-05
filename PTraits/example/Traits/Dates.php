@@ -1,14 +1,14 @@
 <?php
 namespace PTraits\example\Traits;
 
-class Dates {
+class Dates extends \PTraits\TraitAccess {
 	
-	public function addDays($_this, $days) {
-		$_this->setStamp(strtotime("+".$days." days", $_this->getStamp()));
+	public function addDays($days) {
+		$this->stamp = strtotime("+".$days." days", $this->stamp);
 	}
 
-	public function addWeeks($_this, $weeks) {
-		$_this->setStamp(strtotime("+".$weeks." weeks", $_this->getStamp()));
+	public function addWeeks($weeks) {
+		$this->stamp = strtotime("+".$weeks." weeks", $this->stamp);
 	}
 }
 ?>
