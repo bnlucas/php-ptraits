@@ -1,0 +1,23 @@
+Nov/05/2012
+Nov/10/2012
+
+
+
+
+
+Trait classes loaded:
+----------------------------------------------------------------------------
+PTraits\example\Traits\Dates
+
+
+Trait methods loaded:
+----------------------------------------------------------------------------
+PTraits\example\Traits\Dates::addDays
+PTraits\example\Traits\Dates::addWeeks
+
+
+Files loaded:
+----------------------------------------------------------------------------
+/home/plainwreck/html/com/php/PTraits/example/Calendar.php
+/home/plainwreck/html/com/php/PTraits/PTraits.php
+/home/plainwreck/html/com/php/PTraits/example/Traits/Dates.php
