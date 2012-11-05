@@ -61,11 +61,8 @@ class PTraits {
 	 * @param   string|array $traits
 	 * @return  void
 	 */
-	public function __construct($traits = null) {
-		$traits = (!is_array($traits)) ? array($traits) : $traits;
-		foreach ($traits as $trait) {
-			$this->load($trait);
-		}
+	public function __construct($traits) {
+		$this->import($traits);
 	}
 
 	/**
