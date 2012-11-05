@@ -76,10 +76,8 @@ class PTraits {
 		$parameters = $parameters[0];
 		if ($search = $this->searchMethods($method)) {
 			$method = $search->reflect->getMethod($method);
+			$instance = array_shift($parameters);
 			$i = 0;
-			if (count($parameters) == ($method->getNumberOfParameters() + 1)) {
-				array_shift($parameters);
-			}
 			foreach ($method->getParameters() as $parameter) {
 				if (isset($parameters[$i])) {
 					continue;
@@ -91,7 +89,7 @@ class PTraits {
 				}
 				$i++;
 			}
-			return $method->invokeArgs($search->trait, $parameters);
+			return $search->trait->call($instance, $method, $parameters);
 		} else {
 			throw new LogicException("Method '".$method."' was never loaded.");
 		}
