@@ -36,6 +36,7 @@
 class Loader {
 
 	/**
+	 * List of loaded class files.
 	 * @access public
 	 * @static
 	 * @var array

@@ -79,10 +79,20 @@ class PTraits {
 		$parameters = $parameters[0];
 		if ($search = $this->searchMethods($method)) {
 			$method = $search->reflect->getMethod($method);
-			if (count($parameters) != $method->getNumberOfRequiredParameters()) {
-				$error = "Method '".$method->getName()."' requires ".$method->getNumberOfRequiredParameters()." parameters. Supplied ".count($parameters).".\n\n";
-				$error .= ReflectionMethod::export($search->reflect->getName(), $method->getName(), true);
-				throw new InvalidArgumentException($error);
+			$i = 0;
+			foreach ($method->getParameters() as $parameter) {
+				$i++;
+				if (isset($parameters[$i])) {
+					continue;
+				}
+				if (!$parameter->isOptional()) {
+					throw new InvalidArgumentException("$".$parameter->getName()." is a required parameter in method '".$method->getName()."'.\n\n".ReflectionMethod::export($search->reflect->getName(), $method->getName(), true));
+				} else {
+					$parameters[$i] = $parameter->getDefaultValue();
+				}
+			}
+			if (count($parameters) == ($method->getNumberOfParameters() + 1)) {
+				array_shift($parameters);
 			}
 			return $method->invokeArgs($search->trait, $parameters);
 		} else {
