@@ -80,8 +80,11 @@ class PTraits {
 		if ($search = $this->searchMethods($method)) {
 			$method = $search->reflect->getMethod($method);
 			$i = 0;
+			if (count($parameters) == ($method->getNumberOfParameters() + 1)) {
+				$i--;
+				array_shift($parameters);
+			}
 			foreach ($method->getParameters() as $parameter) {
-				$i++;
 				if (isset($parameters[$i])) {
 					continue;
 				}
@@ -90,9 +93,7 @@ class PTraits {
 				} else {
 					$parameters[$i] = $parameter->getDefaultValue();
 				}
-			}
-			if (count($parameters) == ($method->getNumberOfParameters() + 1)) {
-				array_shift($parameters);
+				$i++;
 			}
 			return $method->invokeArgs($search->trait, $parameters);
 		} else {
@@ -109,7 +110,7 @@ class PTraits {
 		$out = array();
 		foreach ($this->methods as $method) {
 			$out[] = array(
-				"trait"		=> $method->reflect->getShortName(),
+				"trait"		=> $method->reflect->getName(),
 				"method"	=> $method->method
 			);
 		}
@@ -123,8 +124,8 @@ class PTraits {
 	 */
 	public function getTraits() {
 		$out = array();
-		foreach ($this->traits as $trait => $reflect) {
-			$out[] = $trait;
+		foreach ($this->traits as $trait => $class) {
+			$out[] = get_class($class);
 		}
 		return $out;
 	}
