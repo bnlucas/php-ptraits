@@ -81,7 +81,6 @@ class PTraits {
 			$method = $search->reflect->getMethod($method);
 			$i = 0;
 			if (count($parameters) == ($method->getNumberOfParameters() + 1)) {
-				$i--;
 				array_shift($parameters);
 			}
 			foreach ($method->getParameters() as $parameter) {
