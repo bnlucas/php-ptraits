@@ -75,4 +75,3 @@ echo $app->sayGoodMorning("user");	// Good morning, user.
 echo $app->sayGoodnight("world");	// Goodnight, world.
 echo $app->sayGoodbye("user");		// Good bye, user.
 ```
------------------------------------------------------
