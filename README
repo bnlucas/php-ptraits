@@ -4,7 +4,7 @@ PTraits Useage
 
 /path/to/App/App.php
 -----------------------------------------------------
-<?php
+```php
 namespace App;
 use PTraits;
 
@@ -33,7 +33,7 @@ class App {
 		return "Goodnight, ".$name.".";
 	}
 }
-?>
+```
 -----------------------------------------------------
 
 
