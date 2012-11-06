@@ -1,8 +1,8 @@
-PTraits Useage
+#PTraits Useage
 -----------------------------------------------------
 
 
-/path/to/App/App.php
+###/path/to/App/App.php
 -----------------------------------------------------
 ```php
 namespace App;
@@ -37,9 +37,9 @@ class App {
 -----------------------------------------------------
 
 
-/path/to/App/Traits/HelloGoodbye.php
+###/path/to/App/Traits/HelloGoodbye.php
 -----------------------------------------------------
-<?php
+```php
 namespace App/Traits;
 
 /**
@@ -57,13 +57,13 @@ class HelloGoodbye {
 		return "Goodbye, ".$name.".";
 	}
 }
-?>
+```
 -----------------------------------------------------
 
 
-/path/to/App/index.php
+###/path/to/App/index.php
 -----------------------------------------------------
-<?php
+```php
 require_once($_SERVER['DOCUMENT_ROOT']."/path/to/Loader.php");
 Loader::register();
 
@@ -74,5 +74,4 @@ echo $app->sayHello("world");		// Hello, world.
 echo $app->sayGoodMorning("user");	// Good morning, user.
 echo $app->sayGoodnight("world");	// Goodnight, world.
 echo $app->sayGoodbye("user");		// Good bye, user.
-?>
------------------------------------------------------
+```
