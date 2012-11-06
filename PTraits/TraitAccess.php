@@ -127,7 +127,7 @@ class TraitAccess {
 	 * @param   array $parameters
 	 * @return  mixed
 	 */
-	public function call($instance, ReflectionMthod $method, $parameters) {
+	public function call($instance, ReflectionMethod $method, $parameters) {
 		$this->instance = $instance;
 		$this->reflect = new ReflectionClass($instance);
 		return $method->invokeArgs($this, $parameters);
