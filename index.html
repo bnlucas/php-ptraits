@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html>
+
+  <head>
+    <meta charset='utf-8' />
+    <meta http-equiv="X-UA-Compatible" content="chrome=1" />
+    <meta name="description" content="Ptraits : Faking Traits &lt; PHP 5.4.0" />
+
+    <link rel="stylesheet" type="text/css" media="screen" href="stylesheets/stylesheet.css">
+
+    <title>Ptraits</title>
+  </head>
+
+  <body>
+
+    <!-- HEADER -->
+    <div id="header_wrap" class="outer">
+        <header class="inner">
+          <a id="forkme_banner" href="https://github.com/bnlucas/PTraits">View on GitHub</a>
+
+          <h1 id="project_title">Ptraits</h1>
+          <h2 id="project_tagline">Faking Traits &lt; PHP 5.4.0</h2>
+
+            <section id="downloads">
+              <a class="zip_download_link" href="https://github.com/bnlucas/PTraits/zipball/master">Download this project as a .zip file</a>
+              <a class="tar_download_link" href="https://github.com/bnlucas/PTraits/tarball/master">Download this project as a tar.gz file</a>
+            </section>
+        </header>
+    </div>
+
+    <!-- MAIN CONTENT -->
+    <div id="main_content_wrap" class="outer">
+      <section id="main_content" class="inner">
+        <h1>PTraits Useage</h1>
+
+<hr><h3>/path/to/App/App.php</h3>
+
+<hr><div class="highlight"><pre><span class="k">namespace</span> <span class="nx">App</span><span class="p">;</span>
+<span class="k">use</span> <span class="nx">PTraits</span><span class="p">;</span>
+
+<span class="k">class</span> <span class="nc">App</span> <span class="p">{</span>
+
+    <span class="k">protected</span> <span class="nv">$traits</span><span class="p">;</span>
+
+    <span class="k">public</span> <span class="k">function</span> <span class="nf">__call</span><span class="p">(</span><span class="nv">$method</span><span class="p">,</span> <span class="nv">$parameters</span><span class="p">)</span> <span class="p">{</span>
+        <span class="nb">array_unshift</span><span class="p">(</span><span class="nv">$arguments</span><span class="p">,</span> <span class="nv">$this</span><span class="p">);</span>
+        <span class="k">return</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">traits</span><span class="o">-&gt;</span><span class="nv">$method</span><span class="p">(</span><span class="nv">$parameters</span><span class="p">);</span>
+    <span class="p">}</span>
+
+    <span class="k">public</span> <span class="k">function</span> <span class="nf">import</span><span class="p">(</span><span class="nv">$traits</span><span class="p">)</span> <span class="p">{</span>
+        <span class="k">if</span> <span class="p">(</span><span class="nv">$this</span><span class="o">-&gt;</span><span class="na">traits</span> <span class="nx">instanceof</span> <span class="nx">\PTraits\PTraits</span><span class="p">)</span> <span class="p">{</span>
+            <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">traits</span><span class="o">-&gt;</span><span class="na">import</span><span class="p">(</span><span class="nv">$traits</span><span class="p">);</span>
+        <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+            <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">traits</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">\PTraits\PTraits</span><span class="p">(</span><span class="nv">$traits</span><span class="p">);</span>
+        <span class="p">}</span>
+    <span class="p">}</span>
+
+    <span class="k">public</span> <span class="k">function</span> <span class="nf">sayGoodMorning</span><span class="p">(</span><span class="nv">$name</span><span class="p">)</span> <span class="p">{</span>
+        <span class="k">return</span> <span class="s2">"Good morning, "</span><span class="o">.</span><span class="nv">$name</span><span class="o">.</span><span class="s2">"."</span><span class="p">;</span>
+    <span class="p">}</span>
+
+    <span class="k">public</span> <span class="k">function</span> <span class="nf">setGoodnight</span><span class="p">(</span><span class="nv">$name</span><span class="p">)</span> <span class="p">{</span>
+        <span class="k">return</span> <span class="s2">"Goodnight, "</span><span class="o">.</span><span class="nv">$name</span><span class="o">.</span><span class="s2">"."</span><span class="p">;</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+
+<hr><h3>/path/to/App/Traits/HelloGoodbye.php</h3>
+
+<hr><div class="highlight"><pre><span class="k">namespace</span> <span class="nx">App</span><span class="o">/</span><span class="nx">Traits</span><span class="p">;</span>
+<span class="k">use</span> <span class="nx">PTraits</span><span class="p">;</span>
+
+<span class="sd">/**</span>
+<span class="sd"> * Please note that trait classes cannot have</span>
+<span class="sd"> * constructor methods. PTraits will throw a</span>
+<span class="sd"> * LogicException if one is found.</span>
+<span class="sd"> */</span>
+<span class="k">class</span> <span class="nc">HelloGoodbye</span> <span class="k">extends</span> <span class="nx">\PTraits\TraitAccess</span> <span class="p">{</span>
+
+    <span class="k">public</span> <span class="k">function</span> <span class="nf">sayHello</span><span class="p">(</span><span class="nv">$name</span><span class="p">)</span> <span class="p">{</span>
+        <span class="k">return</span> <span class="s2">"Hello, "</span><span class="o">.</span><span class="nv">$name</span><span class="o">.</span><span class="s2">"."</span><span class="p">;</span>
+    <span class="p">}</span>
+
+    <span class="k">public</span> <span class="k">function</span> <span class="nf">sayGoodbye</span><span class="p">(</span><span class="nv">$name</span><span class="p">)</span> <span class="p">{</span>
+        <span class="k">return</span> <span class="s2">"Goodbye, "</span><span class="o">.</span><span class="nv">$name</span><span class="o">.</span><span class="s2">"."</span><span class="p">;</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+
+<hr><h3>/path/to/App/index.php</h3>
+
+<hr><div class="highlight"><pre><span class="k">require_once</span><span class="p">(</span><span class="nv">$_SERVER</span><span class="p">[</span><span class="s1">'DOCUMENT_ROOT'</span><span class="p">]</span><span class="o">.</span><span class="s2">"/path/to/Utilities/Loader.php"</span><span class="p">);</span>
+<span class="nx">Loader</span><span class="o">::</span><span class="na">register</span><span class="p">();</span>
+
+<span class="nv">$app</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">\App\App</span><span class="p">();</span>
+<span class="nv">$app</span><span class="o">-&gt;</span><span class="na">import</span><span class="p">(</span><span class="s2">"\App</span><span class="se">\T</span><span class="s2">raits\HelloGoodbye"</span><span class="p">);</span>
+
+<span class="k">echo</span> <span class="nv">$app</span><span class="o">-&gt;</span><span class="na">sayHello</span><span class="p">(</span><span class="s2">"world"</span><span class="p">);</span>       <span class="c1">// Hello, world.</span>
+<span class="k">echo</span> <span class="nv">$app</span><span class="o">-&gt;</span><span class="na">sayGoodMorning</span><span class="p">(</span><span class="s2">"user"</span><span class="p">);</span>  <span class="c1">// Good morning, user.</span>
+<span class="k">echo</span> <span class="nv">$app</span><span class="o">-&gt;</span><span class="na">sayGoodnight</span><span class="p">(</span><span class="s2">"world"</span><span class="p">);</span>   <span class="c1">// Goodnight, world.</span>
+<span class="k">echo</span> <span class="nv">$app</span><span class="o">-&gt;</span><span class="na">sayGoodbye</span><span class="p">(</span><span class="s2">"user"</span><span class="p">);</span>      <span class="c1">// Good bye, user.</span>
+</pre></div>
+      </section>
+    </div>
+
+    <!-- FOOTER  -->
+    <div id="footer_wrap" class="outer">
+      <footer class="inner">
+        <p class="copyright">Ptraits maintained by <a href="https://github.com/bnlucas">bnlucas</a></p>
+        <p>Published with <a href="http://pages.github.com">GitHub Pages</a></p>
+      </footer>
+    </div>
+
+    
+
+  </body>
+</html>
