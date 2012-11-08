@@ -41,13 +41,14 @@ class App {
 -----------------------------------------------------
 ```php
 namespace App/Traits;
+use PTraits;
 
 /**
  * Please note that trait classes cannot have
  * constructor methods. PTraits will throw a
  * LogicException if one is found.
  */
-class HelloGoodbye {
+class HelloGoodbye extends \PTraits\TraitAccess {
 	
 	public function sayHello($name) {
 		return "Hello, ".$name.".";
@@ -64,7 +65,7 @@ class HelloGoodbye {
 ###/path/to/App/index.php
 -----------------------------------------------------
 ```php
-require_once($_SERVER['DOCUMENT_ROOT']."/path/to/Loader.php");
+require_once($_SERVER['DOCUMENT_ROOT']."/path/to/Utilities/Loader.php");
 Loader::register();
 
 $app = new \App\App();

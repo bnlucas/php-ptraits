@@ -2,15 +2,15 @@
 /**
  * Loader is a simple autoloader to call with an PHP project.
  * 
- * require_once($_SERVER['DOCUMENT_ROOT']."/path/to/Loader.php");
- * Loader::register();
+ * require_once($_SERVER['DOCUMENT_ROOT']."/path/to/Utilities/Loader.php");
+ * \Utilities\Loader::register();
  *
  * @author      Nathan Lucas <nathan@plainwreck.com>
  * @copyright   2012 Nathan Lucas
- * @link        http://www.plainwreck.com/Loader
- * @license     http://www.plainwreck.com/Loader/license
+ * @link        http://www.plainwreck.com/Utilities
+ * @license     http://www.plainwreck.com/Utilities
  * @version     1.0.0
- * @package     Loader
+ * @package     Utilities
  *
  * MIT LICENSE
  *
@@ -33,10 +33,12 @@
  * OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION
  * WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
+
+namespace Utilities;
+
 class Loader {
 
 	/**
-	 * List of loaded class files.
 	 * @access public
 	 * @static
 	 * @var array
@@ -45,13 +47,14 @@ class Loader {
 
 	/**
 	 * Format filenames for classes to load. Logs filename in Loader::$files array.
+	 *
 	 * @access public
 	 * @static
 	 * @return void
 	 */
 	public static function autoload($class) {
 		$_class = str_replace(__NAMESPACE__."\\", "", __CLASS__);
-		$base = __DIR__;
+		$base = PHP_BASE;
 		if (substr($base, -(strlen($_class))) === $_class) {
 			$base = substr($base, 0, -(strlen($_class)));
 		}
@@ -71,18 +74,20 @@ class Loader {
 	}
 
 	/**
-	 * Sets SPL autoloader.
+	 * Clears and sets SPL autoloader.
+	 *
 	 * @access public
 	 * @static
 	 * @return void
 	 */
 	public static function register() {
 		spl_autoload_register(null, false);
-		spl_autoload_register("Loader::autoload");
+		spl_autoload_register("\Utilities\Loader::autoload");
 	}
 
 	/**
 	 * Return log of loaded files.
+	 *
 	 * @access public
 	 * @static
 	 * @return array
